@@ -33,9 +33,10 @@ app.use(cors())
 app.use('/assets',express.static(path.join(__dirname,'public/assets')))
 app.use('/auth',authRoute)
 
-connectDB(MONGO_URL)
-app.listen(port,()=>console.log(`Server Running on Port ${port}... `))
 
 app.use('/auth',router)
 app.use('/users',userRouter)
 app.use('/posts',postRouter)
+
+connectDB(MONGO_URL)
+app.listen(port,()=>console.log(`Server Running on Port ${port}... `))
