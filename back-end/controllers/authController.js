@@ -58,5 +58,5 @@ export async function login(req,res){
     res.status(400).json({msg : error.message})
   }
 }
-console.log('u are the best')
+
 
