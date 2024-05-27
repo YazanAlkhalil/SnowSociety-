@@ -1,4 +1,4 @@
-
-function login(req,res){
-
+import bcrypt from 'bcryptjs'
+async function login(req,res){
+  
 }

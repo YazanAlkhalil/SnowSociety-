@@ -10,7 +10,7 @@ function checkUserToken(req,res,next){
   if(!decoded){
     return res.status(400).json({msg:'Bad Token!'})
   }
-  req.body.email = decoded.email
+  req.user = decoded
   next()
 }
 export default checkUserToken
