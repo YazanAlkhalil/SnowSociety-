@@ -1,25 +1,35 @@
 import express from 'express'
 import mongoose from 'mongoose';
+import bodyParser from 'body-parser'
+import cors from 'cors'
+import helmet from 'helmet'
+import dotenv from 'dotenv'
+import multer from 'multer'
+import morgan from 'morgan'
+import path from 'path'
+import { fileURLToPath } from 'url'
+import connectDB from './db/connectDB.js'
 
-import router from './routes/authRoute.js'
-import User from "./models/User.js"
+
 
 const app = express()
-const port=3333;
+import router from './routes/authRoute.js'
 
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+dotenv.config()
+const port = process.env.PORT || 3000
+const MONGO_URL = process.env.MONGO_URL
 app.use(express.json())
+app.use(helmet())
+app.use(helmet.crossOriginResourcePolicy({policy : 'cross-origin'}))
+app.use(morgan('common'))
+app.use(bodyParser.json({limit : '30mb' , extended : true}))
+app.use(bodyParser.urlencoded({limit : '30mb' , extended : true}))
+app.use(cors())
+app.use('/assets',express.static(path.join(__dirname,'public/assets')))
+app.use('auth',router)
 
-
-
-
-mongoose.connect("mongodb://127.0.0.1:27017/social").then(()=>{
-    console.log("connection is done");
-})
-
-app.post('/add',)
-app.get('/',(req,res)=>{
-    res.send('test is successfuly')
-})
-app.use('/auth',router)
-
-app.listen(port ,()=>console.log('listening on port'))
+connectDB(MONGO_URL)
+app.listen(port,()=>console.log(`Server Running on Port ${port}... `))
