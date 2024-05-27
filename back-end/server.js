@@ -12,11 +12,11 @@ import connectDB from './db/connectDB.js'
 
 
 
-import userRouter from './routes/users.js'
-import postRouter from './routes/posts.js'
-const app = express()
+import userRouter from './routes/userRoute.js'
+import postRouter from './routes/postRoute.js'
 import authRoute from './routes/authRoute.js'
 
+const app = express()
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -32,21 +32,10 @@ app.use(bodyParser.urlencoded({limit : '30mb' , extended : true}))
 app.use(cors())
 app.use('/assets',express.static(path.join(__dirname,'public/assets')))
 app.use('/auth',authRoute)
-
-connectDB(MONGO_URL)
-app.listen(port,()=>console.log(`Server Running on Port ${port}... `))
-
-
-const port=333;
-import router from './routes/authRoute.js'
-mongoose.connect("mongodb://127.0.0.1:27017/social").then(()=>{
-    console.log("connection is done");
-})
-
-
-
 app.use('/auth',router)
 app.use('/users',userRouter)
 app.use('/posts',postRouter)
 
-app.listen(port ,()=>console.log('listening on port'))
+connectDB(MONGO_URL)
+app.listen(port,()=>console.log(`Server Running on Port ${port}... `))
+
