@@ -36,17 +36,6 @@ app.use('/auth',authRoute)
 connectDB(MONGO_URL)
 app.listen(port,()=>console.log(`Server Running on Port ${port}... `))
 
-
-const port=333;
-import router from './routes/authRoute.js'
-mongoose.connect("mongodb://127.0.0.1:27017/social").then(()=>{
-    console.log("connection is done");
-})
-
-
-
 app.use('/auth',router)
 app.use('/users',userRouter)
 app.use('/posts',postRouter)
-
-app.listen(port ,()=>console.log('listening on port'))
