@@ -13,7 +13,7 @@ import connectDB from './db/connectDB.js'
 
 
 const app = express()
-import router from './routes/authRoute.js'
+import authRoute from './routes/authRoute.js'
 
 
 const __filename = fileURLToPath(import.meta.url)
@@ -29,7 +29,7 @@ app.use(bodyParser.json({limit : '30mb' , extended : true}))
 app.use(bodyParser.urlencoded({limit : '30mb' , extended : true}))
 app.use(cors())
 app.use('/assets',express.static(path.join(__dirname,'public/assets')))
-app.use('auth',router)
+app.use('/auth',authRoute)
 
 connectDB(MONGO_URL)
 app.listen(port,()=>console.log(`Server Running on Port ${port}... `))
