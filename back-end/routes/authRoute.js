@@ -5,12 +5,14 @@ import bcrypt from "bcryptjs";
 // import jwt from "jwt";
 import User from "../models/User.js"
 const router=express.Router()
+const app=express();
+app.use(express.json())
 
 
 
 const storage=multer.diskStorage({
     destination:function(req,file,cb){
-      cb(null,path.join(__dirname,'/images'))
+      cb(null,path.join(__dirname,'../public/assets'))
     },
     filename:function (req,file,cb){
       cb(null,file.originalname)
@@ -18,8 +20,12 @@ const storage=multer.diskStorage({
   })
   const upload=multer({storage})
     
-
-    router.post('regester',upload.single('picture'),async (req,res)=>{
+  router.get('/hi',(Req,res)=>{
+    res.send('done')
+  })
+  // upload.single('picture'),
+router.post('/regester',async (req,res)=>{
+      console.log("regester is successfuly");
         try{
             const  {
                 firstName,  
@@ -33,8 +39,9 @@ const storage=multer.diskStorage({
                 viewedprofile,
                 impression
             }=req.body
-    const hashpassword = await bcrypt.hash(passwords, 10);
-            const newuser= new userModel(
+            const salt=await bcrypt.genSalt()
+    const hashpassword = await bcrypt.hash(passwords, salt);
+            const newuser= new User(
              {   firstName,  
                 lastName,
                   email,
@@ -43,7 +50,6 @@ const storage=multer.diskStorage({
                 friends,
                 location,
                 occupation,
-          
                 viewedprofile:Math.floor(Math.random()*1000 ),
                 impression:Math.floor(Math.random()*1000 ),
 
