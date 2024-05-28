@@ -8,6 +8,6 @@ import { checkUserToken } from '../middlewares/Auth.js';
 const router=exprees.Router()
 router.get('/:id',checkUserToken,getUser)
 router.get('/:id/friends',checkUserToken,getUserFriends)
-router.patch('/:id/:frienId',checkUserToken,addRemoveFriend)
+router.patch('/:id/:friendId',checkUserToken,addRemoveFriend)
 
 export default router
