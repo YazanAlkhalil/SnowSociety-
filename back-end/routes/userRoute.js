@@ -3,7 +3,7 @@ import {
     getUser,
     getUserFriends,
     addRemoveFriend,
-} from '../controllers/users.js';
+} from '../controllers/AuthController.js';
 import { checkUserToken } from '../middlewares/Auth.js';
 const router = express.Router()
 router.get('/:id',checkUserToken,getUser)
