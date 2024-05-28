@@ -1,4 +1,9 @@
+import Navbar from "../navbar"
 const HomPage = ()=>{
-  return(<div>HomPage</div>)
+  return(
+    <>
+    <Navbar/>
+    </>
+  )
 }
 export default HomPage
