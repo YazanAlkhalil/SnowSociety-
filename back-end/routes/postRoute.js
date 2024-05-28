@@ -1,5 +1,5 @@
 import express from 'express'
-import { createPost, getFeedPosts, getUserPosts, likePost } from '../controllers/postController'
+import { createPost, getFeedPosts, getUserPosts, likePost } from '../controllers/postController.js'
 const router = express.Router()
 
 
@@ -14,3 +14,5 @@ router.route('get/:userId')
 
 router.route('get/like/:id')
 .post(likePost)
+
+export default router
