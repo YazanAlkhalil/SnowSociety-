@@ -24,7 +24,7 @@ const storage=multer.diskStorage({
     res.send('done')
   })
   
-router.post('/regester',async (req,res)=>{
+router.post('/register',upload.single('image'),async (req,res)=>{
       console.log("regester is successfuly");
         try{
             const  {
@@ -36,9 +36,9 @@ router.post('/regester',async (req,res)=>{
                 friends,
                 location,
                 occupation,
-                viewedprofile,
-                impression
+                
             }=req.body
+           
             const salt=await bcrypt.genSalt()
     const hashpassword = await bcrypt.hash(passwords, salt);
             const newuser= new User(
@@ -47,7 +47,7 @@ router.post('/regester',async (req,res)=>{
                   email,
                 passwords:hashpassword,
                 picturepath,
-                friends,
+                // friends,
                 location,
                 occupation,
                 viewedprofile:Math.floor(Math.random()*1000 ),
@@ -55,6 +55,7 @@ router.post('/regester',async (req,res)=>{
 
                 
             })
+            console.log(newuser);
             const saveuser=await newuser.save()
             res.status(201).send(saveuser)
             }
