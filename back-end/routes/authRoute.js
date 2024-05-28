@@ -1,7 +1,7 @@
 import express from "express";
 import path from 'path'
 // Middlewares // --------------------------------------------------
-import {checkUserToken} from "../middlewares/Auth.js";
+import { checkUserToken } from "../middlewares/Auth.js";
 // Controllers // ---------------------------------------------------
 import { login, register } from "../controllers/AuthController.js";
 // ----------------------------------------------------------------
