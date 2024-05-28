@@ -51,7 +51,7 @@ export async function login(req,res){
     if(!isMatch){
       return res.status(400).json({msg: 'Incorrect Credentials!'})
     }
-    const token = jwt.sign({ id: user._id },process.env.SECRET_KEY)
+    const token = jwt.sign({ id: user._id },process.env.SECRET_KEY,{expiresIn:'5m'})
     delete user.password
     res.status(200).json({'Success!': token , user})
   } catch (error) {
