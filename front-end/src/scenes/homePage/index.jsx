@@ -1,4 +1,13 @@
+import Navbar from "../navbar"
+import CreatePost from "./CreatePost"
+import ShowPost from "./ShowPost"
 const HomPage = ()=>{
-  return(<div>HomPage</div>)
+  return(
+    <>
+    <Navbar/>
+    <CreatePost/>
+    <ShowPost/>
+    </>
+  )
 }
 export default HomPage
