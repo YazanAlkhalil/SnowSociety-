@@ -7,12 +7,14 @@ const navigate = useNavigate()
 async function handleLoginFetch(e){
     e.preventDefault()
     try {
-        
-        let data = await fetch('http://localhost:3000/api/auth/login',{
+        console.log(":dfg");
+        let data = await fetch('http://localhost:3000/auth/login',{
             method : 'POST',
+            credentials:true,
             headers:{'Content-Type':'application/json'},
             body : JSON.stringify({email,password})
         })
+        console.log(data);
         if(data.ok){
             data = await data.json()
             console.log('Welcome bro') ;

@@ -42,6 +42,7 @@ catch(err){
 // Login Function // ------------------------------------------------------------------
 export async function login(req,res){
   try {
+    console.log("jbu");
     const { email , password } = req.body
     const user = await User.findOne({email})
     if(!user){
@@ -53,6 +54,11 @@ export async function login(req,res){
     }
     const token = jwt.sign({ id: user._id },process.env.SECRET_KEY,{expiresIn:'5m'})
     delete user.password
+    res.cookie('jwt',token,{
+      maxAge:15*24*60*60*1000,
+      httpOnly:true,
+      sameSite:'strict'
+    })
     res.status(200).json({'Success!': token , user})
   } catch (error) {
     res.status(400).json({msg : error.message})

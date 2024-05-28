@@ -23,7 +23,6 @@ router.route('/register',savFiles)
 .post(register)
 
 
-router.route('/login',checkUserToken) 
-.post(login)
+router.post('/login',checkUserToken,login) 
 // Export Route // -------------------------------
 export default router
