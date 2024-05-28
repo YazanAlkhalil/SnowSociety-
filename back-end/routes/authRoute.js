@@ -23,7 +23,7 @@ const storage=multer.diskStorage({
   router.get('/hi',(Req,res)=>{
     res.send('done')
   })
-  // upload.single('picture'),
+  
 router.post('/regester',async (req,res)=>{
       console.log("regester is successfuly");
         try{

@@ -1,10 +1,17 @@
 import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Signup from './signup';
 
 function App() {
   return (
-    <div className="App">
-      
-    </div>
+    
+    <BrowserRouter>
+      <Routes>
+        <Route path='/register' element={<Signup/>}></Route>
+        constole
+   
+      </Routes>
+    </BrowserRouter>
   );
 }
 
