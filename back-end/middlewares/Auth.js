@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-function checkUserToken(req,res,next){
+export function checkUserToken(req,res,next){
   const token = req.headers.authorization
   console.log(token);
   if(!token){
@@ -13,4 +13,3 @@ function checkUserToken(req,res,next){
   req.user = decoded
   next()
 }
-export default checkUserToken

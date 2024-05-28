@@ -1,68 +1,29 @@
-import multer from "multer";
 import express from "express";
-import path from "path";
-import bcrypt from "bcryptjs";
-// import jwt from "jwt";
-import User from "../models/User.js"
-const router=express.Router()
-const app=express();
-app.use(express.json())
+import path from 'path'
+import multer from "multer";
+// Middlewares // --------------------------------------------------
+import { checkUserToken } from "../middlewares/Auth.js";
+// Controllers // ---------------------------------------------------
+import { login, register } from "../controllers/AuthController.js";
+// ----------------------------------------------------------------
+const router = express.Router()
+const storage = multer.diskStorage({
+  destination:function(req,file,cb,){
+    cb(null,path.join(__dirname,'/images'))
+  },
+  filename:function (req,file,cb,){
+    cb(null,file.originalname)
+  }
+})
+const upload = multer({storage})
+const  savFiles = upload.single('picture')
 
 
+router.route('/register',savFiles)
+.post(register)
 
-const storage=multer.diskStorage({
-    destination:function(req,file,cb){
-      cb(null,path.join(__dirname,'../public/assets'))
-    },
-    filename:function (req,file,cb){
-      cb(null,file.originalname)
-    }
-  })
-  const upload=multer({storage})
-    
-  router.get('/hi',(Req,res)=>{
-    res.send('done')
-  })
-  
-router.post('/register',upload.single('image'),async (req,res)=>{
-      console.log("regester is successfuly");
-        try{
-            const  {
-                firstName,  
-                lastName,
-                  email,
-                passwords,
-                picturepath,
-                friends,
-                location,
-                occupation,
-                
-            }=req.body
-           
-            const salt=await bcrypt.genSalt()
-    const hashpassword = await bcrypt.hash(passwords, salt);
-            const newuser= new User(
-             {   firstName,  
-                lastName,
-                  email,
-                passwords:hashpassword,
-                picturepath,
-                // friends,
-                location,
-                occupation,
-                viewedprofile:Math.floor(Math.random()*1000 ),
-                impression:Math.floor(Math.random()*1000 ),
 
-                
-            })
-            console.log(newuser);
-            const saveuser=await newuser.save()
-            res.status(201).send(saveuser)
-            }
-
-        
-        catch(err){
-            res.status(500).json({message:err.message})
-        }
-    })
+router.route('/login',checkUserToken) 
+.post(login)
+// Export Route // -------------------------------
 export default router
