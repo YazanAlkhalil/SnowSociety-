@@ -17,7 +17,7 @@ export const createPost = async(res,req)=>{
           comments:[]
       })
       await newPost.save()
-
+      
       const post = await Post.find()
       res.status(201).json(post);
 

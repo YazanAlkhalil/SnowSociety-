@@ -2,11 +2,9 @@ import React, { useState } from "react";
 import "./singnup.css";
 
 const RegistrationForm = () => {
-  const formData = new FormData();
-  formData.append('image', file);
-
   
-  const [picturepath, setpicturepath] = useState(nulll);
+  
+  const [picturepath, setpicturepath] = useState(null);
   const [firstName, setfirstName] = useState("");
   const [lastName, setlastName] = useState("");
   const [email, setemail] = useState("");
@@ -14,8 +12,12 @@ const RegistrationForm = () => {
   const [location, setlocation] = useState("");
   const [occupation, setoccupation] = useState("");
 
+
+  const formData = new FormData();
+  formData.append('image', picturepath);
+
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
+    setpicturepath(e.target.files[0]);
   };
 
   const handleSubmit = (e) => {
@@ -47,6 +49,7 @@ const RegistrationForm = () => {
 
   return (
     <div class="app">
+    <h1>hi</h1>
       <form class="form" onSubmit={handleSubmit}>
         <p class="title">Register </p>
         <p class="message">Signup now and get full access to our app. </p>

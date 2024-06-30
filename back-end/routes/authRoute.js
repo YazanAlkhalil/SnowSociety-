@@ -7,15 +7,27 @@ import { checkUserToken } from "../middlewares/Auth.js";
 import { login, register } from "../controllers/AuthController.js";
 // ----------------------------------------------------------------
 const router = express.Router()
-const storage = multer.diskStorage({
-  destination:function(req,file,cb,){
+// const storage = multer.diskStorage({
+//   destination:function(req,file,cb,){
+//     cb(null,path.join(__dirname,'/images'))
+//   },
+//   filename:function (req,file,cb,){
+//     cb(null,file.originalname)
+//   }
+// })
+
+
+// const upload = multer({storage})
+const storage=multer.diskStorage({
+  destination:function(req,file,cb){
     cb(null,path.join(__dirname,'/images'))
   },
-  filename:function (req,file,cb,){
+  filename:function (req,file,cb){
     cb(null,file.originalname)
   }
 })
-const upload = multer({storage})
+const upload=multer({storage})
+  
 const  savFiles = upload.single('picture')
 
 
